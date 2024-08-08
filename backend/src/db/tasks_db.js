@@ -4,11 +4,11 @@ const newConnection = async () => {
   const connection = await mysql2.createConnection ({
     host: "localhost",
     user: "root",
-    database: "tasks_db"
+    database: "tasks"
   })
   return connection
 }
 
 module.exports = {
   newConnection
-}
+} 
