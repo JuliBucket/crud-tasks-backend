@@ -1,29 +1,27 @@
 const { newConnection } = require("../db/tasks_db")
 const connection = newConnection()
 
-const obtenerTareas = async (req, res) => {
-
+const getTasks = async (req, res) => {
   try {
       const connection = await newConnection();
-
       const [result] = await connection.query(`SELECT * FROM tasks`);
 
-      if(result.length === 0) {
-          res.status(400);
+      if (result.length === 0) {
+          connection.end();
+          return res.status(400).json({ msg: 'No tasks found' });
       }
 
-      res.json(result);
-
       connection.end();
-  } catch(error) {
+      res.json(result);
+  } catch (error) {
       console.error('Ocurrió un error', error);
-      res.status(500).json({ msg: 'Internal server error', error: error.msg})
+      res.status(500).json({ msg: 'Internal server error', error: error.message });
   }
-
-  
 };
 
-const obtenerTareaPorId = async (req,res) => {
+
+
+const getTasksById = async (req,res) => {
 
   try {
       const id = parseInt(req.params.id);
@@ -46,7 +44,7 @@ const obtenerTareaPorId = async (req,res) => {
   };
 };
 
-const insertarTarea = async (req,res) => {
+const insertTask = async (req,res) => {
 
   try {
       const { title, description, isComplete } = req.body;
@@ -90,7 +88,7 @@ const insertarTarea = async (req,res) => {
   };
 };
 
-const actualizarTarea = async (req,res) => {
+const updateTask = async (req,res) => {
 
   try {
       const id = parseInt(req.params.id);
@@ -135,7 +133,7 @@ const actualizarTarea = async (req,res) => {
   };
 };
 
-const eliminarTarea = async (req,res) => {
+const deleteTask = async (req,res) => {
   try {
       const id = parseInt(req.params.id);
 
@@ -162,9 +160,9 @@ const eliminarTarea = async (req,res) => {
 };
 
 module.exports = {
-  obtenerTareas,
-  obtenerTareaPorId,
-  insertarTarea,
-  actualizarTarea,
-  eliminarTarea
+  getTasks,
+  getTasksById,
+  insertTask,
+  updateTask,
+  deleteTask
 };

@@ -1,15 +1,15 @@
-const { obtenerTareas, obtenerTareaPorId, insertarTarea, actualizarTarea, eliminarTarea } = require("../controllers/tasks.controllers")
+const { getTasks, getTasksById, insertTask, updateTask, deleteTask } = require("../controllers/tasks.controllers")
 const userRouter = require("express").Router();
 
-userRouter.get("/task", obtenerTareas)
+userRouter.get("/tasks", getTasks)
 
-userRouter.get("/tasks/:id", obtenerTareaPorId)
+userRouter.get("/tasks/:id", getTasksById)
 
-userRouter.post("/tasks", insertarTarea)
+userRouter.post("/tasks", insertTask)
 
-userRouter.post("/tasks/:id", actualizarTarea)
+userRouter.post("/tasks/:id", updateTask)
 
-userRouter.delete("/tasks/:id", eliminarTarea)
+userRouter.delete("/tasks/:id", deleteTask)
 
 module.exports = {
   userRouter
