@@ -1,5 +1,7 @@
-const { getTasks, getTasksById, insertTask, updateTask, deleteTask } = require("../controllers/tasks.controllers")
-const userRouter = require("express").Router();
+import { getTasks, getTasksById, insertTask, updateTask, deleteTask } from "../controllers/tasks.controllers.js";
+import { Router } from "express";
+
+export const userRouter = Router()
 
 userRouter.get("/tasks", getTasks)
 
@@ -11,6 +13,3 @@ userRouter.post("/tasks/:id", updateTask)
 
 userRouter.delete("/tasks/:id", deleteTask)
 
-module.exports = {
-  userRouter
-}
