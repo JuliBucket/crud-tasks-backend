@@ -6,6 +6,6 @@ Para inicializar el proyecto, debe posicionarse en la carpeta "backend"
 
 ``cd backend/``
 
-una vez en la carpeta backend, ejecutar arrancar el proyecto:
+una vez en la carpeta backend, ejecutar "dev" para arrancar el proyecto:
 
 ```npm run dev```
