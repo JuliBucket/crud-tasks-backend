@@ -1,4 +1,5 @@
 import { newConnection } from "../db/tasks_db.js";
+import { validationResult  } from "express-validator"
 
 export const getTasks = async (req, res) => {
   try {

@@ -1,15 +1,23 @@
-import { getTasks, getTasksById, insertTask, updateTask, deleteTask } from "../controllers/tasks.controllers.js";
 import { Router } from "express";
 
-export const userRouter = Router()
+export const tasksRouter = Router()
 
-userRouter.get("/tasks", getTasks)
+import {
+  getTasks,
+  getTasksById,
+  insertTask,
+  updateTask,
+  deleteTask
+} from "../controllers/tasks.controllers.js"
 
-userRouter.get("/tasks/:id", getTasksById)
+import { validacionesDeTask } from "../../middleware/validation.js";
+import { applyValidations } from "../../middleware/applyValidation.js";
 
-userRouter.post("/tasks", insertTask)
 
-userRouter.post("/tasks/:id", updateTask)
-
-userRouter.delete("/tasks/:id", deleteTask)
-
+tasksRouter.get("/", getTasks)
+tasksRouter.post("/", 
+  validacionesDeTask, applyValidations, insertTask
+)
+tasksRouter.get("/:id", getTasksById)
+tasksRouter.put("/:id", updateTask)
+tasksRouter.delete("/:id", deleteTask)
