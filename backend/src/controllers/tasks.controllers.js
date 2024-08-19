@@ -100,7 +100,7 @@ export const updateTask = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-    const { title, description, isCompleted } = req.body;
+    const { title, description, isComplete } = req.body;
 
     const connection = await newConnection();
 
@@ -113,35 +113,17 @@ export const updateTask = async (req, res) => {
       return res.status(404).json({ msg: "Tarea no encontrada" });
     }
 
-    if (typeof description !== "string" || description.trim() === "") {
-      return res
-        .status(400)
-        .json({ msg: "El campo description es obligatorio" });
-    }
-
-    if (typeof isCompleted !== "boolean") {
-      return res
-        .status(400)
-        .json({ msg: "El campo isCompleted debe ser un valor booleano" });
-    }
-
-    if (title.length > 255) {
-      return res
-        .status(400)
-        .json({ msg: "El título supera el límite de caracteres posibles" });
-    }
-
     await connection.query(
       `
-          UPDATE tasks SET title = ?, description = ?, isCompleted = ? WHERE id = ?`,
-      [title, description, isCompleted, id]
+          UPDATE tasks SET title = ?, description = ?, isComplete = ? WHERE id = ?`,
+      [title, description, isComplete, id]
     );
 
     res.status(201).json({
       id: id,
       title,
       description,
-      isCompleted,
+      isComplete,
     });
 
     connection.end();
